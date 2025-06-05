@@ -15,6 +15,7 @@ use App\Exceptions\InsufficientBalanceException;
 use App\Exceptions\TransactionReversalException;
 use App\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use InvalidArgumentException;
 
 class WalletService
 {
@@ -83,18 +84,19 @@ class WalletService
 
     public function transfer(User $sender, TransferDataDTO $data): array
     {
-        if ($data->amount <= 0) {
-            throw new \InvalidArgumentException('O valor da transferência deve ser positivo.');
+        $receiver = User::where('email', $data->recipientEmail)->first();
+
+        if ($sender->id === $receiver->id) {
+            throw new InvalidArgumentException('Não é possível transferir dinheiro para si mesmo.', 400);
         }
 
-        $receiver = User::where('email', $data->recipientEmail)->first();
+        if ($data->amount <= 0) {
+            throw new InvalidArgumentException('O valor da transferência deve ser positivo.', 400);
+        }
+
 
         if (!$receiver) {
             throw new NotFoundException('Usuário destinatário não encontrado.');
-        }
-
-        if ($sender->id === $receiver->id) {
-            throw new \InvalidArgumentException('Não é possível transferir dinheiro para si mesmo.');
         }
 
         return DB::transaction(function () use ($sender, $receiver, $data) {
