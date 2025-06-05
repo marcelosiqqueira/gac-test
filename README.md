@@ -125,7 +125,9 @@ php artisan migrate
 php artisan serve
 ```
 
-## 📚 Documentação da API (Scramble)
+## 📚 Documentação da API (Scramble e Postman)
+
+### 1. Documentação Interativa com Scramble
 
 Este projeto utiliza Scramble para gerar e manter a documentação da API em formato OpenAPI/Swagger, automaticamente a partir do código-fonte. Isso garante que a documentação esteja sempre atualizada com os endpoints e modelos de dados da sua API.
 
@@ -135,6 +137,17 @@ Com o servidor de desenvolvimento em execução (php artisan serve), acesse a se
 http://localhost:8000/docs/api
 
 <img src="public/images/docs_api.png" alt="Dashboard da Carteira" width="800" />
+
+### 2. Coleção Postman
+
+Para uma experiência de teste ainda mais prática, disponibilizei uma coleção Postman com todas as requisições essenciais já configuradas.
+
+Importe o arquivo: public/gac-test.postman_collection.json diretamente para o seu Postman.
+
+Esta coleção inclui:
+
+-   Requisições para registro e login.
+-   Requisições para operações de carteira (saldo, transações, depósito, transferência, estorno).
 
 ## 🧪 Rodando os Testes
 
