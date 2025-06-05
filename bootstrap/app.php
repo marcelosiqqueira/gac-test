@@ -12,6 +12,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -32,6 +33,16 @@ return Application::configure(basePath: dirname(__DIR__))
                 $e->getMessage(),
                 401,
             );
+        });
+
+        $exceptions->render(function (UnauthorizedHttpException $e, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return ApiResponse::error(
+                    'Não autorizado. Por favor, faça login novamente.',
+                    401,
+                    ['authentication' => 'Token não fornecido ou inválido.']
+                );
+            }
         });
 
         $exceptions->render(function (InsufficientBalanceException $e, \Illuminate\Http\Request $request) {
@@ -64,6 +75,14 @@ return Application::configure(basePath: dirname(__DIR__))
                 return ApiResponse::error('Os dados fornecidos são inválidos.', 422, $e->errors());
             }
         });
+
+        $exceptions->render(function (InvalidArgumentException $e, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return ApiResponse::error($e->getMessage(), 400);
+            }
+        });
+
+
 
         // $exceptions->render(function (Throwable $e, \Illuminate\Http\Request $request) {
         //      if ($request->expectsJson() || $request->is('api/*')) {
