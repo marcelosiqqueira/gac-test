@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
+    use HasFactory;
     /**
      * Get the identifier that will be stored in the JWT token.
      */
