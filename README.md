@@ -1,61 +1,148 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Projeto Carteira Financeira
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto entrega uma interface funcional equivalente a uma carteira financeira, permitindo que usuários realizem cadastro, autenticação, depósitos, transferências e estornos de saldo. Desenvolvido com Laravel 12, ele demonstra a implementação de um backend robusto com frontend em Blade e Bootstrap 5.
 
-## About Laravel
+## 📸 Capturas de Tela da Aplicação
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Tela de Login
+<img src="public/images/login.png" alt="Tela de Login" width="800" />
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Dashboard da Carteira
+<img src="public/images/wallet_dashboard.png" alt="Dashboard da Carteira" width="800" />
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 💻 Tecnologias Utilizadas
 
-## Learning Laravel
+Este projeto foi construído com as seguintes tecnologias e ferramentas:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Backend:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   PHP 8.2+ 🐘: A linguagem de programação central.
+-   Laravel 12.x 🍃: O framework PHP robusto e elegante.
+-   MySQL / SQLite 🗄️: Sistema de banco de dados (configurável; SQLite em memória para testes).
+-   tymon/jwt-auth 🔑: Pacote para autenticação JWT.
+-   PEST 🧪: Um framework de testes com sintaxe expressiva e agradável.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Frontend:
 
-## Laravel Sponsors
+-   Blade Templates 🔪: O poderoso sistema de templates do Laravel para renderização HTML.
+-   Bootstrap 5.3 🌐: Um popular framework CSS para design responsivo e componentes de interface.
+-   jQuery 3.7 ✨: Uma biblioteca JavaScript rápida, pequena e rica em recursos para manipulação do DOM e requisições AJAX.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Ferramentas de Desenvolvimento:
 
-### Premium Partners
+-   Composer 📦: Gerenciador de dependências PHP.
+-   Artisan CLI ⚙️: A interface de linha de comando do Laravel.
+-   Scramble 📝: Ferramenta de documentação OpenAPI/Swagger, gerada automaticamente a partir do código.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🛠️ Padrões de Desenvolvimento e Arquitetura
 
-## Contributing
+O projeto foi arquitetado para ser robusto, escalável e de fácil manutenção, seguindo princípios de Clean Architecture e SOLID. A estrutura de camadas garante a separação de responsabilidades e a testabilidade do código:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-   Controllers 🎬: Interagem com as requisições HTTP, delegando a lógica de negócio para os Services e formatando as respostas, mantendo-se "magros".
+-   Services 💼: Contêm a lógica de negócio principal, orquestrando operações e lançando exceções de negócio específicas.
+-   Repositories 🗃️: Abstraem o acesso a dados, interagindo com as Models e implementando interfaces para desacoplamento. (repository pattern)
+-   DTOs 📦: Garantem a transferência de dados de forma tipada e estruturada entre as camadas.
+-   Requests 📝: Centralizam a validação de dados de entrada da API.
+-   Enums 🏷️: Proporcionam clareza e segurança de tipo para dados categorizados, como tipos de transação.
+-   API Resources 📊: Padronizam e formatam as respostas JSON da API.
 
-## Code of Conduct
+-   Tratamento Centralizado de Exceções 🚨: Todas as exceções são manipuladas globalmente, retornando \* \* respostas JSON consistentes e eliminando try-catch dos controllers.
+-   Transações de Banco de Dados 🔄: Garantem a atomicidade e consistência das operações financeiras.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Como Rodar o Projeto
 
-## Security Vulnerabilities
+Siga os passos abaixo para configurar e executar o projeto em sua máquina local.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Pré-requisitos
 
-## License
+-   PHP 8.2+
+-   Composer
+-   Um servidor web (Apache, Nginx ou o servidor embutido do PHP)
+-   MySQL (para banco de dados) e SQLite para testes em memória (para testes)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Passo 1: Clonar o Repositório
+
+```bash
+git clone https://github.com/marcelosiqqueira/gac-test
+cd gac-test
+```
+
+```bash
+git clone https://github.com/marcelosiqqueira/gac-test
+cd gac-test
+```
+
+### Passo 2: Instalar Dependências do Composer
+
+```bash
+composer install
+```
+
+### Passo 3: Configurar o Ambiente
+
+Crie o arquivo .env a partir do exemplo:
+
+```bash
+cp .env.example .env
+```
+
+Edite o arquivo .env e configure as credenciais do seu banco de dados
+
+APP_NAME="Minha Carteira Financeira"
+
+APP_URL="http://localhost:8000"
+
+APP_DEBUG=true
+
+DB_CONNECTION=mysql # ou sqlite
+
+DB_HOST=127.0.0.1
+
+DB_PORT=3306
+
+DB_DATABASE=gac_test_db
+
+DB_USERNAME=root
+
+DB_PASSWORD=
+
+### Passo 4: Gerar Chaves de Aplicação e JWT
+
+```bash
+php artisan key:generate
+php artisan jwt:secret
+```
+
+### Passo 5: Configurar e Rodar Migrações do Banco de Dados
+
+```bash
+php artisan migrate
+```
+
+### Passo 6: Iniciar o Servidor de Desenvolvimento
+
+```bash
+php artisan serve
+```
+
+## 📚 Documentação da API (Scramble)
+
+Este projeto utiliza Scramble para gerar e manter a documentação da API em formato OpenAPI/Swagger, automaticamente a partir do código-fonte. Isso garante que a documentação esteja sempre atualizada com os endpoints e modelos de dados da sua API.
+
+Como Acessar a Documentação
+Com o servidor de desenvolvimento em execução (php artisan serve), acesse a seguinte URL no seu navegador:
+
+http://localhost:8000/docs/api
+
+<img src="public/images/docs_api.png" alt="Dashboard da Carteira" width="800" />
+
+## 🧪 Rodando os Testes
+
+Este projeto inclui testes de feature/integração usando PEST para garantir a funcionalidade dos endpoints da API.
+
+Observação:
+Para que os testes que utilizam SQLite em memória funcionem corretamente, a extensão pdo_sqlite do PHP deve estar habilitada. Caso contrário, você pode encontrar erros de "could not find driver".
+
+```bash
+php artisan test
+```
