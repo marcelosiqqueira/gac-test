@@ -25,6 +25,13 @@ class Transaction extends Model
         'original_transaction_id',
     ];
 
+    protected $appends = ['is_effectively_reversed'];
+
+    public function getIsEffectivelyReversedAttribute(): bool
+    {
+        return $this->is_reversal || $this->reversalTransaction()->exists();
+    }
+
     /**
      * The attributes that should be cast.
      *

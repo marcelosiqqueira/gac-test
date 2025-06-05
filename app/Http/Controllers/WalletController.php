@@ -8,6 +8,7 @@ use App\DTOs\TransferDataDTO;
 use App\Http\Requests\DepositRequest;
 use App\Http\Requests\TransferRequest;
 use App\Http\Requests\ReverseTransactionRequest;
+use App\Http\Resources\TransactionResource;
 use App\Services\WalletService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
@@ -37,12 +38,12 @@ class WalletController extends Controller
     public function getTransactions(Request $request): JsonResponse
     {
         $user = auth()->user();
-        $perPage = $request->get('per_page', 15);
+        $perPage = $request->get('per_page', 10);
 
         $transactions = $this->walletService->getUserTransactions($user, (int) $perPage);
 
         return ApiResponse::success([
-            'transactions' => $transactions->items(),
+            'transactions' => TransactionResource::collection($transactions->items()),
             'pagination' => [
                 'total' => $transactions->total(),
                 'per_page' => $transactions->perPage(),

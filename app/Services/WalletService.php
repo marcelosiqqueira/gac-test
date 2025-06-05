@@ -46,13 +46,13 @@ class WalletService
         $wallet = $this->walletRepository->findByUserId($user->id);
 
         if (!$wallet) {
-            return collect()->paginate($perPage);
+            return (new Transaction())->newCollection()->paginate($perPage);
         }
 
         return Transaction::where('wallet_id', $wallet->id)
-                          ->orWhere('related_wallet_id', $wallet->id)
-                          ->orderByDesc('created_at')
-                          ->paginate($perPage);
+                            ->with('relatedWallet.user')
+                            ->orderByDesc('created_at')
+                            ->paginate($perPage);
     }
 
 
